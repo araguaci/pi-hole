@@ -70,7 +70,7 @@ def test_setupVars_are_sourced_to_global_scope(host):
 
 def test_setupVars_saved_to_file(host):
     """
-    confirm saved settings are written to a file for future updates to re-use
+    confirm saved settings are written to a file for future updates to reuse
     """
     # dedent works better with this and padding matching script below
     set_setup_vars = "\n"
@@ -176,6 +176,12 @@ def test_installPihole_fresh_install_readableFiles(host):
     setup_var_file += "INSTALL_WEB_INTERFACE=true\n"
     setup_var_file += "EOF\n"
     host.run(setup_var_file)
+    # Install FTL's development branch to get the latest features
+    host.run(
+        """
+    echo "development" > /etc/pihole/ftlbranch
+    """
+    )
     install = host.run(
         """
     export TERM=xterm
@@ -431,6 +437,12 @@ def test_installPihole_fresh_install_readableBlockpage(host, test_webpage):
     setup_var_file += "INSTALL_WEB_INTERFACE=true\n"
     setup_var_file += "EOF\n"
     host.run(setup_var_file)
+    # Install FTL's development branch to get the latest features
+    host.run(
+        """
+    echo "development" > /etc/pihole/ftlbranch
+    """
+    )
     installWeb = host.run(
         """
     export TERM=xterm
